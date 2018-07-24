@@ -8,6 +8,7 @@ package com.kiragu.templating;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
+import com.kiragu.models.Customer;
 
 /**
  *
@@ -24,13 +25,12 @@ public class Main {
     }
     
     public static String expression1(Customer customer){
+        return "name";
     }
     
     public static String expression2(Customer customer){
-    
+        return "jsjs";
     }
-    
-    public static
-    
+     
     
 }
