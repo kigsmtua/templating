@@ -19,17 +19,16 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 public class Main {
     
     public static void main(String[] args) {
-     ExpressionParser parser = new SpelExpressionParser();
-     Expression exp = parser.parseExpression("'Hello World'.bytes.length");
-     int length = (Integer) exp.getValue();
-//   The expressions can be used here
+  
      Customer customer = new Customer(2,"John","2543","1322",4);
+     
      expression1(customer);
-     System.out.println("The length returned is..." + length);
+     
+     
     }
     
     public static void expression1(Customer customer){
-     
+        long startTime = System.nanoTime();
         ExpressionParser parser = new SpelExpressionParser();
         Expression exp = parser.parseExpression("riskBand==4");
         EvaluationContext context = new StandardEvaluationContext(customer);
@@ -39,7 +38,10 @@ public class Main {
             System.out.println("Journey A");
         }else{
             System.out.println("Journey B");
-        }
+        }  
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime)/1000000;
+        System.out.println("Expresssion one executed in..." +duration +"ms");
     }
     
     public static String expression2(Customer customer){
