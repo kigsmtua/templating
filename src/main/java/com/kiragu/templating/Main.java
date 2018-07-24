@@ -30,7 +30,6 @@ public class Main {
     double total = 0;
     for (int i = 0; i < 1000; i++) {
     	long startTime = System.nanoTime();
-    	customer = new Customer(2 + i,"John","2543","1322",4 + i);
     	expression1(customer);
     	long endTime = System.nanoTime();
     	total +=  (endTime - startTime) / 1000000;
@@ -48,10 +47,9 @@ public class Main {
     total = 0;
     for (int i = 0; i < 1; i++) {
     	long startTime = System.nanoTime();
-        // Case 1 for Expression 2
         expression2(loan);
     	long endTime = System.nanoTime();
-    	total +=  Long.valueOf((endTime - startTime)) / 1000000;
+    	total +=  (endTime - startTime) / 1000000;
     }
     
     
