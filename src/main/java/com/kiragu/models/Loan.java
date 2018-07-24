@@ -5,18 +5,19 @@ import java.util.Date;
 public class Loan {
 	
 	int id;
-	int customerId;
 	double amount;
 	Date dueDate;
 	double interest;
+	Customer customer;
 	
 	public Loan() {}
 	
-	public Loan(int id, int customerId, Date dueDate, double interest) {
+	public Loan(int id, Customer customer, double amount, Date dueDate, double interest) {
 		this.id = id;
-		this.customerId = customerId;
+		this.customer = customer;
 		this.dueDate = dueDate;
 		this.interest = interest;
+		this.amount = amount;
 	}
 
 	public int getId() {
@@ -27,12 +28,12 @@ public class Loan {
 		this.id = id;
 	}
 
-	public int getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public double getAmount() {

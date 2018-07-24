@@ -9,6 +9,12 @@ import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import com.kiragu.models.Customer;
+import com.kiragu.models.Loan;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
@@ -25,6 +31,21 @@ public class Main {
      expression1(customer);
      
      
+     customer = new Customer(3,"Vincent","432432","44444",3);
+     
+     Calendar c=new GregorianCalendar();
+     c.add(Calendar.DATE, 31);
+     Date futureDate=c.getTime();
+     
+     // Case 1 for Expression 2
+     Loan loan = new Loan(1, customer, 999, futureDate, 14.1);
+     expression2(loan);
+     
+     // Case 2 for Expression 3
+     loan = new Loan(1, customer, 2000, new Date(), 3);
+     customer = new Customer(4,"John","254722123456","44444",3);
+     loan.setCustomer(customer);
+     expression2(loan);
     }
     
     public static void expression1(Customer customer){
@@ -35,17 +56,51 @@ public class Main {
         boolean result = exp.getValue(context, Boolean.class);
         
         if (result){
-            System.out.println("Journey A");
+            System.out.println("expression1 Journey A");
         }else{
-            System.out.println("Journey B");
+            System.out.println("expression1 Journey B");
         }  
         long endTime = System.nanoTime();
         long duration = (endTime - startTime)/1000000;
         System.out.println("Expresssion one executed in..." +duration +"ms");
     }
     
-    public static String expression2(Customer customer){
-        return "jsjs";
+    public static void expression2(Loan loan){
+    	long startTime = System.nanoTime();
+        ExpressionParser parser = new SpelExpressionParser();
+        
+        Calendar c=new GregorianCalendar();
+        c.add(Calendar.DATE, 30);
+        Date day30=c.getTime();
+        
+        Expression exp1 = parser.parseExpression(
+        		"interest > 5 && "
+        		+ "dueDate.getTime() > 1" // fix
+        		+ "&& amount < 1000");
+        
+        Expression exp2 = parser.parseExpression(
+        		"customer.name.equals(\"John\") && "
+        		+ "customer.msisdn.equals(\"254722123456\")");
+        
+        EvaluationContext context = new StandardEvaluationContext(loan);
+
+        boolean result = exp1.getValue(context, Boolean.class);
+        
+        String params = "Amount " + loan.getAmount() + " Due Date: " + loan.getDueDate() + 
+        		" Interest: " + loan.getInterest() + " Name: " + loan.getCustomer().getName() +
+        		" MSISDN " + loan.getCustomer().getMsisdn();
+        
+        if (result){
+            System.out.println("expression2 Journey B - " + params);
+        }else if (exp2.getValue(context, Boolean.class)){
+        	
+            System.out.println("expression2 Journey A - " + params);
+        } else {
+        	System.out.println("expression2 Journey B - " + params);
+        }
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime)/1000000;
+        System.out.println("Expresssion two executed in... " +duration +" ms");
     }
      
     
