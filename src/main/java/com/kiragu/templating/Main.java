@@ -5,6 +5,10 @@
  */
 package com.kiragu.templating;
 
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+
 /**
  *
  * @author john.kiragu
@@ -12,6 +16,21 @@ package com.kiragu.templating;
 public class Main {
     
     public static void main(String[] args) {
-        System.out.println("");
+     ExpressionParser parser = new SpelExpressionParser();
+     Expression exp = parser.parseExpression("'Hello World'.bytes.length");
+     int length = (Integer) exp.getValue();
+//   The expressions can be used here
+     System.out.println("The length returned is..." + length);
     }
+    
+    public static String expression1(Customer customer){
+    }
+    
+    public static String expression2(Customer customer){
+    
+    }
+    
+    public static
+    
+    
 }
