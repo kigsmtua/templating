@@ -67,7 +67,7 @@ public class Main {
 	        // Case 1 for Expression 2
 	    	expression2(loan);
 	    	long endTime = System.nanoTime();
-	    	total +=  (endTime - startTime) / 1000000;
+	    	total +=  (endTime - startTime) /1000000;
 	    }
 	    
 	    
